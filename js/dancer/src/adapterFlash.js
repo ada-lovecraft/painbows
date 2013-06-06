@@ -27,6 +27,7 @@
       !window.soundManager && !smLoading && loadSM.call( this );
 
       if ( window.soundManager ) {
+        console.log('windowSoundmanager');
         this.audio = soundManager.createSound({
           id       : 'dancer' + Math.random() + '',
           url      : this.path,
@@ -49,7 +50,8 @@
           }
         });
         this.dancer.audio = this.audio;
-      }
+      } else 
+        console.log('no sound manager');
 
       // Returns audio if SM already loaded -- otherwise,
       // sets dancer instance's audio property after load
@@ -57,6 +59,7 @@
     },
 
     play : function () {
+      console.log('this.audio: ' + this.audio);
       this.audio.play();
       this.isPlaying = true;
     },
@@ -111,6 +114,7 @@
   function loadSM () {
     var adapter = this;
     smLoading = true;
+    console.log('flashJS: ' + Dancer.options.flashJS);
     loadScript( Dancer.options.flashJS, function () {
       soundManager = new SoundManager();
       soundManager.flashVersion = 9;
@@ -126,8 +130,9 @@
         smLoaded = true;
         adapter.load();
       });
-      soundManager.ontimeout(function(){
-        console.error( 'Error loading SoundManager2.swf' );
+      soundManager.ontimeout(function(e){
+        console.log('e: %o', e);
+        console.error( 'Error loading soundmanager2.swf' );
       });
       soundManager.beginDelayedInit();
     });
