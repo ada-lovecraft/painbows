@@ -248,7 +248,7 @@ squeal = dancer.createKick({
     dancer.pause();
     restartRainbow();
   })
-  .load({ src: AUDIO_FILE, codecs: [ 'mp3' ]})
+  .load({ src: AUDIO_FILE, codecs: [ 'mp3', 'ogg' ]})
 
   dancer.play();
 }
