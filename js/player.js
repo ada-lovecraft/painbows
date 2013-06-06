@@ -205,6 +205,7 @@ function beginPainbow() {
   $('body').addClass('painbow');
   colors = PAINBOW_COLOURS;
   $lol = $('#lol');
+  $('#haha').show();
   $lol.css('left',(demo.width * 0.5) - ($lol.width()/2) + 'px');
   $lol.css('top', (demo.height * 0.5) - ($lol.height()/2) + 'px');
   $lol.show();
