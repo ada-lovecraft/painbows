@@ -87,7 +87,6 @@
     var
       isApple = !!( navigator.vendor || '' ).match( /Apple/ ),
       version = navigator.userAgent.match( /Version\/([^ ]*)/ );
-      console.log('safari version: ' + version);
     version = version ? parseFloat( version[ 1 ] ) : 0;
     return isApple && version <= 6;
   }

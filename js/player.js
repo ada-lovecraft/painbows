@@ -148,7 +148,7 @@ function restartRainbow() {
 }
 
 function dancerLoaded() {
-  console.log('dancerLoaded');
+  fadeOutLoading();
   var supported = Dancer.isSupported();
   if ( !supported ) {
     $p = $('#lol');
@@ -158,6 +158,22 @@ function dancerLoaded() {
     restartRainbow();
   }
 
+}
+
+function fadeInLoading() {
+  console.log('fading in');
+  if (!dancer.isLoaded()) {
+    $('#wait').fadeIn(1000,fadeOutLoading);
+  }
+
+}
+
+function fadeOutLoading() {
+  console.log('fadingOut');
+  if (!dancer.isLoaded()) {
+    $('#wait').fadeOut(1000,fadeInLoading);
+  } else 
+    $('#wait').fadeOut(200);
 }
 
 
@@ -238,6 +254,10 @@ $(function() {
   })
   .load({ src: AUDIO_FILE, codecs: [ 'mp3', 'ogg' ]})
   !dancer.isLoaded() ? dancer.bind( 'loaded', dancerLoaded ) : dancerLoaded();
+
+
+  $loading = $('#wait');
+  $loading.fadeOut();
 });
 
 

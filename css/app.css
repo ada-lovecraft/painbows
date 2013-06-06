@@ -26,6 +26,14 @@
 	font-family: Futura, Arial, sans-serif;
 }
 
+#wait {
+	font-size: 72px;
+	position: absolute;
+	top:5px;
+	left: 5px;
+	font-family: Futura, Arial, sans-serif;
+}
+
 #haha {
 	background-repeat: no-repeat;
 	background-image: url(../images/haha.png);
