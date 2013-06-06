@@ -106,29 +106,9 @@ function beginPainbow() {
 }
 
 function restartRainbow() {
-dancer = new Dancer();
+  dancer = new Dancer();
 
-happy = dancer.createKick({
-  frequency: [0,500],
-  threshold: 0,
-  onKick: doHappy,
-   //offKick: decayHappy
-});
-
-pain = dancer.createKick({
-    frequency: [0,2.5],
-    threshold: .6,
-    onKick: doPain
-  });
-
-squeal = dancer.createKick({
-  frequency: [3,200],
-  threshold: .1,
-  onKick: doSqueal
-  ,offKick: decaySqueal
-});
-
- dancer.onceAt( 0, function () {
+  dancer.onceAt( 0, function () {
     beginRainbow();
     happy.on();
   }).onceAt( 6, function () {
@@ -143,12 +123,46 @@ squeal = dancer.createKick({
     restartRainbow();
   })
   .load({ src: AUDIO_FILE, codecs: [ 'mp3', 'ogg' ]})
+  
+  happy = dancer.createKick({
+    frequency: [0,500],
+    threshold: 0,
+    onKick: doHappy,
+     //offKick: decayHappy
+  });
 
+  pain = dancer.createKick({
+      frequency: [0,2.5],
+      threshold: .6,
+      onKick: doPain
+    });
+
+  squeal = dancer.createKick({
+    frequency: [3,200],
+    threshold: .1,
+    onKick: doSqueal
+    ,offKick: decaySqueal
+  });
+  dancer.load
   dancer.play();
 }
 
+function dancerLoaded() {
+  console.log('dancerLoaded');
+  var supported = Dancer.isSupported();
+  if ( !supported ) {
+    $p = $('#lol');
+    $p.html("sorry. your browser doesn't support web audio or audio data.");
+    $p.show();
+  } else {
+    restartRainbow();
+  }
+
+}
+
+
 $(function() {
-  console.log('supported: ' + Dancer.isSupported() );
+  dancer = new Dancer();
   
   painbows = Sketch.create({
             container: document.getElementById( 'container' )
@@ -208,9 +222,22 @@ $(function() {
           particles[i].draw( this );
       }
   };
-
-  restartRainbow();
+  dancer.onceAt( 0, function () {
+    beginRainbow();
+    happy.on();
+  }).onceAt( 6, function () {
+    beginPainbow();
+    happy.off();
+    pain.on();
+    squeal.on();
+  }).onceAt( 63, function() {
+    pain.off();
+    squeal.off();
+    dancer.pause();
+    restartRainbow();
+  })
+  .load({ src: AUDIO_FILE, codecs: [ 'mp3', 'ogg' ]})
+  !dancer.isLoaded() ? dancer.bind( 'loaded', dancerLoaded ) : dancerLoaded();
 });
 
 
-console.log('loading...');
