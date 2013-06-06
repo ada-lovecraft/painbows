@@ -149,6 +149,7 @@ function restartRainbow() {
 
 function dancerLoaded() {
   fadeOutLoading();
+
   var supported = Dancer.isSupported();
   if ( !supported ) {
     $p = $('#lol');
@@ -161,6 +162,7 @@ function dancerLoaded() {
 }
 
 function fadeInLoading() {
+
   console.log('fading in');
   if (!dancer.isLoaded()) {
     $('#wait').fadeIn(1000,fadeOutLoading);
@@ -169,11 +171,14 @@ function fadeInLoading() {
 }
 
 function fadeOutLoading() {
+  
   console.log('fadingOut');
+  console.log($('#wait'));
   if (!dancer.isLoaded()) {
     $('#wait').fadeOut(1000,fadeInLoading);
-  } else 
-    $('#wait').fadeOut(200);
+  } else {
+    $('#wait').hide();
+  }
 }
 
 
@@ -181,7 +186,7 @@ $(function() {
   dancer = new Dancer();
   
   painbows = Sketch.create({
-            container: document.getElementById( 'container' )
+            container: $('#container')[0]
         });
 
   painbows.setup = function() {
@@ -231,13 +236,13 @@ $(function() {
   };
 
   painbows.draw = function() {
-
       this.globalCompositeOperation  = 'lighter';
-
       for ( var i = particles.length - 1; i >= 0; i-- ) {
           particles[i].draw( this );
       }
   };
+
+
   dancer.onceAt( 0, function () {
     beginRainbow();
     happy.on();
@@ -253,11 +258,12 @@ $(function() {
     restartRainbow();
   })
   .load({ src: AUDIO_FILE, codecs: [ 'mp3', 'ogg' ]})
+
+  
   !dancer.isLoaded() ? dancer.bind( 'loaded', dancerLoaded ) : dancerLoaded();
 
 
-  $loading = $('#wait');
-  $loading.fadeOut();
+  $('#wait').fadeOut(1000,fadeInLoading);
 });
 
 
