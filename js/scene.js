@@ -7,8 +7,11 @@
   animate();
 
   function init() {
-    container = $('<canvas/>' );
-    $('document').append( container );
+    var container = $('<canvas/>', {
+      id: 'testing'
+    });
+    console.log(container);
+    $('body').append(container);
   }
 
   function onDocumentMouseMove( event ) {
@@ -33,4 +36,5 @@
   function render() {
     
   }
+
 })();

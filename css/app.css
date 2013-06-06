@@ -14,3 +14,25 @@
 .red {
 	background-color: red;
 }
+
+.painbow {
+	background-color: #000;
+}
+
+#lol {
+	display:none;
+	font-size: 72px;
+	position: absolute;
+	font-family: Futura, Arial, sans-serif;
+}
+
+#haha {
+	background-repeat: no-repeat;
+	background-image: url(../images/haha.png);
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	height: 300px;
+	width: 271px;
+	display: none;
+}
